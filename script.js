@@ -59,7 +59,6 @@ class Table {
     row.appendChild(cell);
     row.dataset.id = id;
     this.table.appendChild(row);
-    this._addRowToLocalStorage(inputsData, id);
   }
 
   _addRowToLocalStorage(inputsData, id) {
@@ -135,7 +134,7 @@ class Table {
   }
 
   updateTable() {
-    mainTable.innerHTML = '';
+    this.table.innerHTML = '';
     const rows = JSON.parse(localStorage.getItem('rows'));
   
     for (let i = 0; i < rows.length; i += 1) {
@@ -148,9 +147,9 @@ class Table {
     localStorage.setItem('rows', '[]');
   }
 
-  enableDrugnDrop() {
+  // enableDrugnDrop() {
     
-  }
+  // }
 }
 
 class NewRowForm {
@@ -165,6 +164,7 @@ class NewRowForm {
       const id = Math.floor(Math.random() * 1234234 + 7 / 117);
       const inputsData = event.target.querySelectorAll('input');
       mainTable.createRow(inputsData, id);
+      mainTable._addRowToLocalStorage(inputsData, id);
 
       this.clearFormInputs(event.target);
     });
