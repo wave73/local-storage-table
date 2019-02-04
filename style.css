@@ -1,0 +1,147 @@
+body,form,html {
+  margin: 0;
+  padding: 0;
+}
+
+input[type=submit] {
+  -webkit-appearance: button
+}
+
+body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  letter-spacing: 0
+}
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Fira Sans,Droid Sans,Helvetica Neue,sans-serif
+}
+
+h1 {
+  color: #59ABE3;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.create-row-table {
+  margin-bottom: 20px;
+}
+
+.create-row-table th,
+.create-row-table td {
+  display: inline-block;
+  width: 250px;
+  height: 35px;
+  text-align: left;
+  margin-right: 10px;
+}
+
+.create-row-table input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+
+  font-size: 14px;
+}
+
+button {
+  width: 120px;
+  height: 35px;
+  padding: 5px;
+
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus,
+input:focus {
+  outline: 0;
+}
+
+.clear-all-btn {
+  background-color: #E74C3C;
+  color: #fff;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+}
+
+.clear-all-btn:hover {
+  background-color: rgba(231, 76, 60, 0.8);
+}
+
+.submit-btn {
+  background-color: rgb(242, 241, 239);
+  color: #E74C3C;
+}
+
+.submit-btn:hover {
+  background-color: rgb(242, 241, 239, 0.6);
+}
+
+.delete-btn {
+  background-color: rgb(233, 94, 78);
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: rgb(233, 94, 78, 0.8);
+}
+
+
+.main-table td {
+  display: inline-block;
+  width: 250px;
+  height: 35px;
+  margin-right: 10px;
+}
+
+.main-table span {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+
+  border: 1px solid #C5EFF7;
+  border-radius: 5px;
+
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.main-table input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+
+  font-size: 14px;
+}
+
+.main-table span:hover {
+  cursor: pointer;
+  background-color: #F2F1EF;
+}
+
+.main-table input:focus {
+  color: #1F3A93;
+}
+
+.over {
+  border: 2px dotted gray;
+}

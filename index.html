@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <main class="container">
+   <h1>Drug & Drop / Local Storage Table</h1> <button class="clear-all-btn">Clear All</button>
+
+    <form id="new-row-form">
+      <table class="create-row-table">
+        <thead>
+          <tr>
+            <th>Version name</th>
+            <th>Description</th>
+            <th>Release date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input type="text" name="name" autocomplete="off">
+            </td>
+            <td>
+              <input type="text" name="description" autocomplete="off">
+            </td>
+            <td>
+              <input type="text" name="releaseDate" autocomplete="off">
+            </td>
+            <td>
+              <button type="submit" class="submit-btn">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+
+    <table class="main-table"></table>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
