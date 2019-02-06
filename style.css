@@ -133,15 +133,22 @@ input:focus {
   font-size: 14px;
 }
 
+:root {
+  --custom-color: transparent;
+}
+
+.main-table span {
+  background-color: var(--custom-color);
+}
+
 .main-table span:hover {
   cursor: pointer;
-  background-color: #F2F1EF;
+}
+
+.main-table tr:hover {
+  --custom-color: #F2F1EF;
 }
 
 .main-table input:focus {
   color: #1F3A93;
-}
-
-.over {
-  border: 2px dotted gray;
 }

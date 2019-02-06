@@ -11,7 +11,8 @@ class Table {
       let currentTarget = event.target;
     
       while (currentTarget !== mainTable) {
-        if (currentTarget.tagName === 'TD' && currentTarget.tagName !== 'BUTTON') {
+        if (!currentTarget) return;
+        if (currentTarget.tagName === 'TD' && currentTarget.children[0].tagName !== 'BUTTON') {
           this.editRowCell(currentTarget);
           return;
         } 
@@ -41,11 +42,12 @@ class Table {
         span.textContent = inputsData[i].value;
       }
       
-      span.setAttribute('class', 'cell');
-      span.setAttribute('draggable', 'true');
       cell.appendChild(span);
       row.appendChild(cell);
     }
+
+    row.setAttribute('class', 'row');
+    row.setAttribute('draggable', 'true');
   
     deleteButton.textContent = "Delete";
     deleteButton.setAttribute('class', 'delete-btn');
@@ -90,7 +92,7 @@ class Table {
       span.textContent = event.target.value;
       currentCell.removeChild(event.target);
       currentCell.appendChild(span);
-  
+
       this._editRowInLocalStorage(currentCell.parentNode);
     }
   
@@ -140,6 +142,8 @@ class Table {
     for (let i = 0; i < rows.length; i += 1) {
       this.createRow(rows[i].data, rows[i].id);
     }
+
+    this.enableDrugAndDrop();
   }
 
   clearTable() {
@@ -147,9 +151,72 @@ class Table {
     localStorage.setItem('rows', '[]');
   }
 
-  // enableDrugnDrop() {
+  enableDrugAndDrop() {
+    let dragSrcEl = null;
+    let dropSrcEl = null;
+
+    const changeRowsInLocalStorage = (dragSrcEl, dropSrcEl) => {
+      const dragRowId = +dragSrcEl.dataset.id;
+      const dropRowId = +dropSrcEl.dataset.id;
+      const dragSpan = dragSrcEl.querySelectorAll('span');
+      const dropSpan = dropSrcEl.querySelectorAll('span');
+
+      const rows = JSON.parse(localStorage.getItem('rows'));
+
+      for (let i = 0; i < rows.length; i += 1) {
+        if (rows[i].id === dragRowId) {
+          rows[i].data[0] = dragSpan[0].innerHTML;
+          rows[i].data[1] = dragSpan[1].innerHTML;
+          rows[i].data[2] = dragSpan[2].innerHTML;
+        }
+
+        if (rows[i].id === dropRowId) {
+          rows[i].data[0] = dropSpan[0].innerHTML;
+          rows[i].data[1] = dropSpan[1].innerHTML;
+          rows[i].data[2] = dropSpan[2].innerHTML;
+        }
+      }
+
+      localStorage.setItem('rows', JSON.stringify(rows));
+      this.updateTable();
+    }
+
+    function handleDragStart(e) {
+      dragSrcEl = this;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', this.innerHTML);
+    }
     
-  // }
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'move'; 
+      return false;
+    }
+
+    function handleDrop(e) {
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+    
+      if (dragSrcEl != this) {
+        dropSrcEl = this;
+        dragSrcEl.innerHTML = this.innerHTML;
+        this.innerHTML = e.dataTransfer.getData('text/html');
+        changeRowsInLocalStorage(dragSrcEl, dropSrcEl);
+      }
+    
+      return false;
+    }
+    
+    var rows = document.querySelectorAll('.row');
+    [].forEach.call(rows, (row) => {
+      row.addEventListener('dragstart', handleDragStart, false);
+      row.addEventListener('dragover', handleDragOver, false);
+      row.addEventListener('drop', handleDrop, false);
+    });
+  }
 }
 
 class NewRowForm {
@@ -163,8 +230,9 @@ class NewRowForm {
       event.preventDefault();
       const id = Math.floor(Math.random() * 1234234 + 7 / 117);
       const inputsData = event.target.querySelectorAll('input');
-      mainTable.createRow(inputsData, id);
+      
       mainTable._addRowToLocalStorage(inputsData, id);
+      mainTable.updateTable();
 
       this.clearFormInputs(event.target);
     });
